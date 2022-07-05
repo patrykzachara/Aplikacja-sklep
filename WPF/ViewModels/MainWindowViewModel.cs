@@ -1,4 +1,5 @@
 ﻿using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 using System;
@@ -8,6 +9,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using WPF.Helpers;
 using WPF.Services;
 using WPF.Views;
 
@@ -17,11 +20,14 @@ namespace WPF.ViewModels
     {
         private readonly IRegionManager _regionManager;
         private readonly IShopService _shopService;
+
         public DelegateCommand AddNewShop { get; set; }
-        public MainWindowViewModel(IRegionManager regionManager,IShopService shopService)
+        public MainWindowViewModel(IRegionManager regionManager,
+            IShopService shopService, IEventAggregator ea)
         {
             _regionManager = regionManager;
             _shopService = shopService;
+            ea.GetEvent<UpdateShopsEvent>().Subscribe(UpdateShopList);
             AddNewShop = new DelegateCommand(AddShop);
             Shops = new ObservableCollection<string>(_shopService.GetShops().Select(x => $"{x.Name} {x.Adress.City} {x.Adress.StreetAddress}").ToList());
         }
@@ -29,7 +35,11 @@ namespace WPF.ViewModels
         public ObservableCollection<string> Shops
         {
             get { return shops; }
-            set { shops = value; }
+            set 
+            {
+                shops = value; 
+                this.RaisePropertyChanged(nameof(this.Shops));
+            }
         }
         private string selected;
 
@@ -52,6 +62,10 @@ namespace WPF.ViewModels
         {
             if (navigatePath != null)
                 _regionManager.RequestNavigate("MainRegion", navigatePath);
+        }
+        void UpdateShopList()
+        {
+            Shops = new ObservableCollection<string>(_shopService.GetShops().Select(x => $"{x.Name} {x.Adress.City} {x.Adress.StreetAddress}").ToList());
         }
 
     }

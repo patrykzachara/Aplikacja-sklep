@@ -1,4 +1,5 @@
 ﻿using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPF.Helpers;
 using WPF.Models;
 using WPF.Services;
 
@@ -14,10 +16,12 @@ namespace WPF.ViewModels
     public class AddShopViewModel : BindableBase
     {
         public DelegateCommand AddNewShop { get; set; }
-        public AddShopViewModel(IRegionManager regionManager, IShopService shopService)
+        public AddShopViewModel(IRegionManager regionManager, IShopService shopService,
+            IEventAggregator eventAggregator)
         {
             _regionManager = regionManager;
             _shopService = shopService;
+            _eventAggregator = eventAggregator;
             AddNewShop = new DelegateCommand(AddShop);
         }
         private string name;
@@ -57,6 +61,7 @@ namespace WPF.ViewModels
         private string zipcode;
         private readonly IRegionManager _regionManager;
         private readonly IShopService _shopService;
+        private readonly IEventAggregator _eventAggregator;
 
         public string ZipCode
         {
@@ -86,6 +91,7 @@ namespace WPF.ViewModels
             };
             _shopService.AddShop(shop);
             var view = _regionManager.Regions.Where(x => x.Name == "MainRegion").Single().ActiveViews.First();
+            _eventAggregator.GetEvent<UpdateShopsEvent>().Publish();
             _regionManager.Regions.Where(x => x.Name == "MainRegion").Single().Remove(view);
         }
 
