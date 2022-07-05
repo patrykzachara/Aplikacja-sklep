@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WPF.DatabaseContext;
 
@@ -11,9 +12,11 @@ using WPF.DatabaseContext;
 namespace WPF.Migrations
 {
     [DbContext(typeof(DatabaseContext.AppContext))]
-    partial class AppContextModelSnapshot : ModelSnapshot
+    [Migration("20220705215410_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,12 +73,12 @@ namespace WPF.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("ShopId")
+                    b.Property<int>("shopId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ShopId");
+                    b.HasIndex("shopId");
 
                     b.ToTable("Products");
                 });
@@ -149,13 +152,13 @@ namespace WPF.Migrations
 
             modelBuilder.Entity("WPF.Models.Product", b =>
                 {
-                    b.HasOne("WPF.Models.Shop", "Shop")
+                    b.HasOne("WPF.Models.Shop", "shop")
                         .WithMany()
-                        .HasForeignKey("ShopId")
+                        .HasForeignKey("shopId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Shop");
+                    b.Navigation("shop");
                 });
 
             modelBuilder.Entity("WPF.Models.ProductSale", b =>

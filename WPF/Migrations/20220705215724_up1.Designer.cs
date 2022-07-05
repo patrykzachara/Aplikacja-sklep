@@ -12,8 +12,8 @@ using WPF.DatabaseContext;
 namespace WPF.Migrations
 {
     [DbContext(typeof(DatabaseContext.AppContext))]
-    [Migration("20220704195616_init")]
-    partial class init
+    [Migration("20220705215724_up1")]
+    partial class up1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -73,12 +73,12 @@ namespace WPF.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("adressId")
+                    b.Property<int>("ShopId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("adressId");
+                    b.HasIndex("ShopId");
 
                     b.ToTable("Products");
                 });
@@ -152,13 +152,13 @@ namespace WPF.Migrations
 
             modelBuilder.Entity("WPF.Models.Product", b =>
                 {
-                    b.HasOne("WPF.Models.Adress", "adress")
+                    b.HasOne("WPF.Models.Shop", "Shop")
                         .WithMany()
-                        .HasForeignKey("adressId")
+                        .HasForeignKey("ShopId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("adress");
+                    b.Navigation("Shop");
                 });
 
             modelBuilder.Entity("WPF.Models.ProductSale", b =>

@@ -2,14 +2,8 @@
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using WPF.Helpers;
 using WPF.Services;
 using WPF.Views;
@@ -35,9 +29,9 @@ namespace WPF.ViewModels
         public ObservableCollection<string> Shops
         {
             get { return shops; }
-            set 
+            set
             {
-                shops = value; 
+                shops = value;
                 this.RaisePropertyChanged(nameof(this.Shops));
             }
         }
@@ -46,7 +40,7 @@ namespace WPF.ViewModels
         public string Selected
         {
             get { return selected; }
-            set 
+            set
             {
                 selected = value;
                 this.RaisePropertyChanged(nameof(this.CanConfirm));
