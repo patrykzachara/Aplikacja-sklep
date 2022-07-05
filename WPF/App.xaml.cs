@@ -1,7 +1,9 @@
 ﻿using Prism.Ioc;
+using Prism.Modularity;
 using Prism.Unity;
 using System.Windows;
 using WPF.DatabaseContext;
+using WPF.Services;
 using WPF.Views;
 
 namespace WPF
@@ -15,6 +17,11 @@ namespace WPF
         {
             // register other needed services here
             containerRegistry.Register<AppContext>();
+            containerRegistry.Register<IShopService, ShopService>();
+
+            //Navigation
+            containerRegistry.RegisterForNavigation<MainWindow>("MainWindow"); 
+            containerRegistry.RegisterForNavigation<AddShopView>("AddShopView");
         }
 
         protected override Window CreateShell()
