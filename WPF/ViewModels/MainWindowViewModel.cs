@@ -5,6 +5,7 @@ using Prism.Regions;
 using System.Collections.ObjectModel;
 using System.Linq;
 using WPF.Helpers;
+using WPF.Models;
 using WPF.Services;
 using WPF.Views;
 
@@ -14,30 +15,40 @@ namespace WPF.ViewModels
     {
         private readonly IRegionManager _regionManager;
         private readonly IShopService _shopService;
+        private readonly IEventAggregator _eventAggregator;
 
         public DelegateCommand AddNewShop { get; set; }
+        public DelegateCommand ProductsV { get; set; }
         public MainWindowViewModel(IRegionManager regionManager,
-            IShopService shopService, IEventAggregator ea)
+            IShopService shopService, IEventAggregator eventAggregator)
         {
             _regionManager = regionManager;
             _shopService = shopService;
-            ea.GetEvent<UpdateShopsEvent>().Subscribe(UpdateShopList);
+            _eventAggregator = eventAggregator;
+            _eventAggregator.GetEvent<UpdateShopsEvent>().Subscribe(UpdateShopList);
             AddNewShop = new DelegateCommand(AddShop);
-            Shops = new ObservableCollection<string>(_shopService.GetShops().Select(x => $"{x.Name} {x.Adress.City} {x.Adress.StreetAddress}").ToList());
+            ProductsV = new DelegateCommand(GoToProducts);
+            Shops = new ObservableCollection<Shop>(_shopService.GetShops().AsEnumerable());
         }
-        private ObservableCollection<string> shops;
-        public ObservableCollection<string> Shops
+        private ObservableCollection<Shop> shops;
+        public ObservableCollection<Shop> Shops
         {
-            get { return shops; }
+            get
+            {
+                return shops;
+            }
             set
             {
                 shops = value;
-                this.RaisePropertyChanged(nameof(this.Shops));
+                this.RaisePropertyChanged(nameof(this.ShopsString));
             }
         }
-        private string selected;
+        public ObservableCollection<string> ShopsString =>
+                new ObservableCollection<string>(shops.Select(x => $"{x.Name} {x.Adress.City} {x.Adress.StreetAddress}"));
 
-        public string Selected
+        private int selected;
+
+        public int Selected
         {
             get { return selected; }
             set
@@ -47,7 +58,7 @@ namespace WPF.ViewModels
             }
         }
 
-        public bool CanConfirm => !string.IsNullOrEmpty(Selected);
+        public bool CanConfirm => Selected != -1;
         private void AddShop()
         {
             Navigate(nameof(AddShopView));
@@ -59,7 +70,12 @@ namespace WPF.ViewModels
         }
         void UpdateShopList()
         {
-            Shops = new ObservableCollection<string>(_shopService.GetShops().Select(x => $"{x.Name} {x.Adress.City} {x.Adress.StreetAddress}").ToList());
+            Shops = new ObservableCollection<Shop>(_shopService.GetShops().AsEnumerable());
+        }
+        void GoToProducts()
+        {
+            Navigate(nameof(ProductsView));
+            _eventAggregator.GetEvent<SendShopInformationEvent>().Publish(Shops[Selected]);
         }
 
     }

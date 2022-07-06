@@ -16,6 +16,7 @@ namespace WPF.ViewModels
     public class AddShopViewModel : BindableBase
     {
         public DelegateCommand AddNewShop { get; set; }
+        public DelegateCommand Exit { get; set; }
         public AddShopViewModel(IRegionManager regionManager, IShopService shopService,
             IEventAggregator eventAggregator)
         {
@@ -23,6 +24,7 @@ namespace WPF.ViewModels
             _shopService = shopService;
             _eventAggregator = eventAggregator;
             AddNewShop = new DelegateCommand(AddShop);
+            Exit = new DelegateCommand(Back);
         }
         private string name;
 
@@ -90,8 +92,12 @@ namespace WPF.ViewModels
                 }
             };
             _shopService.AddShop(shop);
-            var view = _regionManager.Regions.Where(x => x.Name == "MainRegion").Single().ActiveViews.First();
             _eventAggregator.GetEvent<UpdateShopsEvent>().Publish();
+            Back();
+        }
+        private void Back()
+        {
+            var view = _regionManager.Regions.Where(x => x.Name == "MainRegion").Single().ActiveViews.First();
             _regionManager.Regions.Where(x => x.Name == "MainRegion").Single().Remove(view);
         }
 

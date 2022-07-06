@@ -10,12 +10,14 @@
         Height="450" Width="800">
     <Grid Background="White">
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="auto"></ColumnDefinition>
             <ColumnDefinition Width="auto"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
          </Grid.ColumnDefinitions>
          <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
@@ -29,14 +31,15 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-            <TextBlock Grid.Row="1" Grid.Column="1" Text="Name"></TextBlock>
-        <TextBox Text="{Binding Name, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" MinWidth="300" Grid.Row="2" Grid.Column="1"></TextBox>
-            <TextBlock Grid.Row="3" Grid.Column="1" Text="City"></TextBlock>
-        <TextBox Text="{Binding City, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" MinWidth="300" Grid.Row="4" Grid.Column="1"></TextBox>
-            <TextBlock Grid.Row="5" Grid.Column="1" Text="Street adress"></TextBlock>
-        <TextBox Text="{Binding StreetAdress, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" MinWidth="300" Grid.Row="6" Grid.Column="1"></TextBox>
-            <TextBlock Grid.Row="7" Grid.Column="1" Text="Zip Code"></TextBlock>
-        <TextBox Text="{Binding ZipCode, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" MinWidth="300" Grid.Row="8" Grid.Column="1"></TextBox>
-        <Button Command="{Binding AddNewShop}" IsEnabled="{Binding CanAdd}" Content="Add" Grid.Column="1" Grid.Row="10"></Button>
+        <Button Padding="5" Grid.Column="0" Grid.Row="0" Content="X" Command="{Binding Exit}"></Button>
+            <TextBlock Grid.Row="2" Grid.Column="2" Text="Name"></TextBlock>
+        <TextBox Text="{Binding Name, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" MinWidth="300" Grid.Row="3" Grid.Column="2"></TextBox>
+            <TextBlock Grid.Row="4" Grid.Column="2" Text="City"></TextBlock>
+        <TextBox Text="{Binding City, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" MinWidth="300" Grid.Row="5" Grid.Column="2"></TextBox>
+            <TextBlock Grid.Row="6" Grid.Column="2" Text="Street adress"></TextBlock>
+        <TextBox Text="{Binding StreetAdress, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" MinWidth="300" Grid.Row="7" Grid.Column="2"></TextBox>
+            <TextBlock Grid.Row="8" Grid.Column="2" Text="Zip Code"></TextBlock>
+        <TextBox Text="{Binding ZipCode, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" MinWidth="300" Grid.Row="9" Grid.Column="2"></TextBox>
+        <Button Command="{Binding AddNewShop}" IsEnabled="{Binding CanAdd}" Content="Add" Grid.Column="2" Grid.Row="11"></Button>
     </Grid>
 </UserControl>

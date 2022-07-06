@@ -25,8 +25,8 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Text="Choose shop" FontSize="40" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"></TextBlock>
-        <ComboBox ItemsSource="{Binding Shops}" SelectedItem="{Binding Selected, Mode=OneWayToSource}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" FontSize="20"></ComboBox>
-        <Button Margin="2" Content="Confirm" IsEnabled="{Binding CanConfirm}" Grid.Column="1" Grid.Row="5"></Button>
+        <ComboBox ItemsSource="{Binding ShopsString}" SelectedIndex="{Binding Selected, Mode=OneWayToSource}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" FontSize="20"></ComboBox>
+        <Button Margin="2" Command="{Binding ProductsV}" Content="Confirm" IsEnabled="{Binding CanConfirm}" Grid.Column="1" Grid.Row="5"></Button>
         <Button Margin="2" Command="{Binding AddNewShop}" Content="Add new shop" Grid.Column="2" Grid.Row="5"></Button>
         <ContentControl Grid.RowSpan="10" Grid.ColumnSpan="10" prism:RegionManager.RegionName="MainRegion"/>
     </Grid>
