@@ -15,12 +15,12 @@ namespace WPF.Services
         }
         public IEnumerable<Product> GetProducts(int shopId)
         {
-            var products = _appContext.Products.Where(x => x.Shop.Id == shopId);
+            var products = _appContext.Products.Where(x => x.ShopId == shopId);
             return products;
         }
         public Product GetProductBiId(int productid, int shopId)
         {
-            return _appContext.Products.Where(x => x.Shop.Id == shopId).Single(x => x.Id == productid);
+            return _appContext.Products.Where(x => x.ShopId == shopId).Single(x => x.Id == productid);
         }
         public void AddProduct(Product product)
         {

@@ -24,6 +24,7 @@ namespace WPF
             containerRegistry.RegisterForNavigation<MainWindow>("MainWindow"); 
             containerRegistry.RegisterForNavigation<AddShopView>("AddShopView");
             containerRegistry.RegisterForNavigation<ProductsView>("ProductsView");
+            containerRegistry.RegisterForNavigation<AddProductView>("AddProductView");
         }
 
         protected override Window CreateShell()

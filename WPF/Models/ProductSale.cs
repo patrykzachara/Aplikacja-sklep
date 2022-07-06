@@ -10,7 +10,6 @@ namespace WPF.Models
 {
     public class ProductSale
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
         [Required]

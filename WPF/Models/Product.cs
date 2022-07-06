@@ -10,11 +10,11 @@ namespace WPF.Models
 {
     public class Product
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
         [Required]
-        public Shop Shop { get; set; }
+        [ForeignKey("Shops")]
+        public int ShopId { get; set; }
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }

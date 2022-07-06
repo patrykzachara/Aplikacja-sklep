@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WPF.DatabaseContext;
 
@@ -11,9 +12,11 @@ using WPF.DatabaseContext;
 namespace WPF.Migrations
 {
     [DbContext(typeof(DatabaseContext.AppContext))]
-    partial class AppContextModelSnapshot : ModelSnapshot
+    [Migration("20220706103402_up2")]
+    partial class up2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

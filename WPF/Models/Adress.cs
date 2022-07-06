@@ -5,7 +5,6 @@ namespace WPF.Models
 {
     public class Adress
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
         [Required]

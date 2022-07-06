@@ -36,6 +36,7 @@ namespace WPF.ViewModels
         private void AddNewProduct()
         {
             _regionManager.RequestNavigate("MainRegion", "AddProductView");
+            _eventAggregator.GetEvent<SendShopInformationEvent>().Publish(Shop);
         }
 
         private void Back()
