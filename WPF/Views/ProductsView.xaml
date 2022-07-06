@@ -22,6 +22,14 @@
         </Grid.RowDefinitions>
         <Button Command="{Binding AddProduct}" Content="Add new product" Grid.Column="2" Grid.Row="1" Width="200"></Button>
         <Button Padding="5" Grid.Column="1" Grid.Row="1" Content="X" Command="{Binding Exit}"></Button>
-        <DataGrid Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="10" ItemsSource="{Binding Products}"></DataGrid>
+        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="10" ItemsSource="{Binding Products}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" MinWidth="150"></DataGridTextColumn>
+                <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" MinWidth="150"></DataGridTextColumn>
+                <DataGridTextColumn Header="Price" Binding="{Binding Price}" MinWidth="150"></DataGridTextColumn>
+                <DataGridTextColumn Header="Last update date" Binding="{Binding LastUpdateTime}" MinWidth="150"></DataGridTextColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>
