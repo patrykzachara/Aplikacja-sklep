@@ -17,7 +17,7 @@ namespace WPF.DatabaseContext
         public DbSet<SummaryOfCustomerPurchases> SummaryOfCustomerPurchases { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Connection string");
+            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=EFShopAppDB;Trusted_Connection=True;");
         }
     }
 }

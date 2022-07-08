@@ -15,6 +15,7 @@ namespace WPF.Services
         public ShopService(DatabaseContext.AppContext context)
         {
             _context = context;
+            _context.Database.EnsureCreated();
         }
         /// <summary>
         /// Gettong shops from database
